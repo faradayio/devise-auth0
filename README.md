@@ -1,6 +1,6 @@
 # Devise::Auth0
 
-TODO: Write a gem description
+Allow signed-in auth0 users to areas protected by devise.
 
 ## Installation
 
@@ -18,14 +18,24 @@ Or install it yourself as:
 
     $ gem install devise-auth0
 
-## Usage
+## Configuration
 
-TODO: Write usage instructions here
+In `config/initializers/devise.rb`:
 
-## Contributing
+``` ruby
+require 'devise/strategies/auth0_authenticatable'
 
-1. Fork it ( https://github.com/[my-github-username]/devise-auth0/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+Devise.setup do |config|
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+
+  require 'devise/orm/active_record'
+
+  # this lets you use the login_as helper in tests
+  config.skip_session_storage = [:auth0_authenticatable] unless Rails.env.test?
+
+  config.warden do |manager|
+    manager.strategies.add(:auth0_authenticatable, Devise::Strategies::Auth0Authenticatable)
+    manager.default_strategies(scope: :user).unshift :auth0_authenticatable
+  end
+end
+```

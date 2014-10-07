@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Devise::Auth0::VERSION
   spec.authors       = ["Derek Kastner"]
   spec.email         = ["dkastner@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Integrate devise with auth0}
+  spec.description   = %q{Allow logged-in auth0 users to access protected areas}
   spec.homepage      = ""
   spec.license       = "MIT"
 
