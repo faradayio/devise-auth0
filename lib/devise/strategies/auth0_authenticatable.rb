@@ -5,8 +5,6 @@ module Devise
 
     class Auth0Authenticatable < Base
 
-      TAKE = %w(name email user_id)
-
       def authenticate!
         token = env['HTTP_AUTHORIZATION'].to_s.gsub('Bearer ', '')
 
@@ -25,7 +23,7 @@ module Devise
         end
 
         if decoded_token['aud'] == Auth0::CLIENT_ID
-          user = mapping.to.find_or_sync_auth0(decoded_token.slice(*TAKE))
+          user = mapping.to.find_or_sync_auth0(decoded_token)
           success! user
           return
         end
