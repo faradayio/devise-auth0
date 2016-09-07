@@ -12,7 +12,7 @@ module Devise
       module ClassMethods
 
         def find_or_sync_auth0(info)
-          unless uid = info['user_id']
+          unless uid = info['sub'] || info['user_id']
             raise MissingAuth0Id.new(info),
               "Expected auth0_user_id, got none inside of #{@info.inspect}"
           end
