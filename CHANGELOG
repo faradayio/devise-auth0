@@ -1,3 +1,8 @@
+0.0.3 / 2016-09-07
+
+  * Official user identifier is the `sub` field. Use it first before `user_id`
+    field
+
 0.0.2 / 2014-04-17
 
   * Better support for oauth-based login
