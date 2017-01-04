@@ -1,6 +1,8 @@
 # Devise::Auth0
 
-Allow signed-in auth0 users to areas protected by devise.
+A devise/warden strategy for authenticating users with an Auth0-issued JSON web
+token (JWT). This token is assumed to be provided via the Authorization HTTP
+header.
 
 ## Installation
 
@@ -34,7 +36,12 @@ Devise.setup do |config|
   config.skip_session_storage = [:auth0_authenticatable] unless Rails.env.test?
 
   config.warden do |manager|
-    manager.strategies.add(:auth0_authenticatable, Devise::Strategies::Auth0Authenticatable)
+
+    manager.strategies.add(:auth0_authenticatable, Devise::Strategies::Auth0Authenticatable) do
+      config.client_id = "abc123"
+      config.secret = "shhhh"
+    end
+
     manager.default_strategies(scope: :user).unshift :auth0_authenticatable
   end
 end

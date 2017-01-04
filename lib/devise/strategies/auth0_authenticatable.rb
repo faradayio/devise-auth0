@@ -1,15 +1,20 @@
 require 'devise'
+require 'devise/auth0/config'
 
 module Devise
   module Strategies
 
     class Auth0Authenticatable < Base
 
+      def self.config
+        @config ||= Devise::Auth0::Config.new
+      end
+
       def authenticate!
         token = env['HTTP_AUTHORIZATION'].to_s.gsub('Bearer ', '')
 
         begin
-          decoded_token, header = JWT.decode(token, Devise::Auth0::SECRET)
+          decoded_token, header = JWT.decode(token, self.class.config.secret)
         rescue JWT::DecodeError
           Rails.logger.warn 'Unreadable Auth0 token'
           fail! 'Unreadable Auth0 token'
@@ -22,7 +27,7 @@ module Devise
           return
         end
 
-        if decoded_token['aud'] == Auth0::CLIENT_ID
+        if decoded_token['aud'] == self.class.config.client_id
           user = mapping.to.find_or_sync_auth0(decoded_token)
           success! user
           return
