@@ -1,3 +1,11 @@
+0.1.0 / 2016-01-04
+
+  * Breaking changes
+    
+    * Auth0 client ID and secret are no longer assumed to be in ENV vars at
+      startup time. Instead, configure them when adding the strategy to warden 
+      (see README under Configuration).
+
 0.0.3 / 2016-09-07
 
   * Official user identifier is the `sub` field. Use it first before `user_id`
