@@ -1,3 +1,7 @@
+0.1.1 / 2017-08-23
+
+  * Fix logging of failure to detect auth0 user_id in info
+
 0.1.0 / 2016-01-04
 
   * Breaking changes
