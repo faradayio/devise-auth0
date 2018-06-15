@@ -37,9 +37,9 @@ Devise.setup do |config|
 
   config.warden do |manager|
 
-    manager.strategies.add(:auth0_authenticatable, Devise::Strategies::Auth0Authenticatable) do
-      config.client_id = "abc123"
-      config.secret = "shhhh"
+    manager.strategies.add(:auth0_authenticatable, Devise::Strategies::Auth0Authenticatable) do |auth0|
+      auth0.config.client_id = "abc123"
+      auth0.config.secret = "shhhh"
     end
 
     manager.default_strategies(scope: :user).unshift :auth0_authenticatable
